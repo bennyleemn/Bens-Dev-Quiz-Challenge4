@@ -5,8 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Developer Quik Quiz</title>
+    <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
+    <h1>Developer Quik Quiz</h1>
+
+    <button id="start-btn">Start</button>
+
+    <article id="quiz-container">
+        <section id="question-container">
+          <h2 id="question"></h2>
+          <ul id="choices"></ul>
+          <ul id="correct-answer"></ul>
+        </section>
     
+        <section id="timer-container">
+          <p>Time Remaining: <span id="timer">60</span> seconds</p>
+        </section>
+    
+        <section id="score-container">
+          <p>Highest Score: <span id="highest-score">0</span></p>
+        </section>
+    
+        <button id="submit-btn">Submit</button>
+    </article>
+    
+    <script src="./assets/script.js"></script>
 </body>
 </html>
