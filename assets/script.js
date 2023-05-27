@@ -31,7 +31,7 @@ var questions = [
   {
     question: "The condition in an if/else statement is enclosed within _____.",
     choices: ["Quotes", "Curly brackets", "Parentheses", "Square brackets"],
-    correctAnswer: "Curly brackets",
+    correctAnswer: "Parentheses",
   },
 ];
 
@@ -41,12 +41,15 @@ var currentQuestionIndex = 0;
 var score = 0;
 var highestScore = 0;
 var timer;
+timeLeft = 0 
 
 // Defines starting the quiz
-startQuiz();
+button = document.getElementById("start-btn");
+button.addEventListener("click", (startQuiz));
 
 // Function to start the quiz
 function startQuiz() {
+  button.remove();
   score = 0;
   currentQuestionIndex = 0;
   highestScore = getHighestScore();
@@ -56,7 +59,7 @@ function startQuiz() {
 
 // Defines the display of the current question and response
 function showQuestion() {
-  var currentQuestion = questions[currentQuestionIndex];
+  currentQuestion = questions[currentQuestionIndex];
   questionElement.textContent = currentQuestion.question;
   choicesElement.innerHTML = "";
 
@@ -65,36 +68,42 @@ function showQuestion() {
     li.textContent = choice;
     li.addEventListener("click", () => selectAnswer(choice));
     choicesElement.appendChild(li);
+// keep going on the below:
+    // if (currentQuestionIndex === 5) {
+
+    // }
   });
 }
-
+// this is still a work in progress
 // Defines what to do with the answer selection including correct/incorrect logic
 function selectAnswer(choice) {
   var currentQuestion = questions[currentQuestionIndex];
-  var isCorrect = choice === currentQuestion.correctAnswer;
+  var isCorrect = (choice === currentQuestion.correctAnswer);
 
   if (isCorrect) {
     score++;
-  }
-
-  var selectedChoiceElements = choicesElement.getElementsByTagName("li");
-  for (var i = 0; i < selectedChoiceElements.length; i++) {
-    selectedChoiceElements[i].classList.remove("selected");
-  }
+    correctAnswerElement.textContent= "Correct!";
+    showQuestion();
+    currentQuestionIndex++;
+  
+  } else {
+    correctAnswerElement.textContent = alert("Incorrect! Try again");
+    var selectedChoiceElements = choicesElement.getElementsByTagName("li");
+    for (var i = 0; i < selectedChoiceElements.length; i++) {
+      selectedChoiceElements[i].classList.remove("selected")};
+    timeLeft -= 5;
+  } 
 
   var selectedChoiceElement = event.target;
   selectedChoiceElement.classList.add("selected");
-
-  if (isCorrect) {
-    correctAnswerElement.textContent = "Correct!";
-  } else {
-    correctAnswerElement.textContent = "Incorrect!";
-  }
-
-  if (currentQuestionIndex === questions.length - 1) {
+  
+  if (currentQuestionIndex === questions.length) {
+    stopTimer();
     endQuiz();
-  } else {
-    currentQuestionIndex++;
+  } 
+  
+  else {
+    // currentQuestionIndex++;
     setTimeout(() => {
       correctAnswerElement.textContent = "";
       showQuestion();
@@ -112,7 +121,7 @@ function endQuiz() {
 
 // Defines starting the timer
 function startTimer() {
-  var timeLeft = quizTimer;
+  timeLeft = quizTimer;
   timerElement.textContent = timeLeft;
 
   timer = setInterval(() => {
@@ -159,9 +168,13 @@ function updateHighestScore() {
 function resetQuiz() {
   score = 0;
   currentQuestionIndex = 0;
+  submitButton = document.createElement("button");
+  submitButton.setAttribute("id", "submit-btn");
+  submitButton.textContent = "Submit";
+  document.body.appendChild(submitButton);
+  submitButton.addEventListener("click", endQuiz);
   showQuestion();
   startTimer();
 }
 
 // Submit button event listener
-submitButton.addEventListener("click", endQuiz);

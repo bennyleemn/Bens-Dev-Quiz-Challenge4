@@ -4,6 +4,11 @@ body {
   padding: 20px;
 }
 
+#start-btn {
+  display:block;
+  color:black;
+}
+
 h1 {
   /* display: block;
   flex-direction: space-around; */
@@ -49,12 +54,12 @@ h1 {
   color: blueviolet;
 }
 
-#choices li.selected::after {
-  content: " (Correct Answer)";
-}
+/* #choices li.selected::after {
+  content: " (Correct)";
+} */
 
 #correct-answer {
-  margin-top: 1em;
+  margin-top: 5px;
   font-weight: bold;
   color: magenta;
 }
